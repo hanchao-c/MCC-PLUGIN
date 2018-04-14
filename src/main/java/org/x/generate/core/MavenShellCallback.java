@@ -1,4 +1,4 @@
-package org.winber.MCC_plugin;
+package org.x.generate.core;
 
 import java.io.File;
 import java.util.StringTokenizer;
