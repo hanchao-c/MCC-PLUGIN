@@ -6,7 +6,9 @@
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+		<plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+		
 		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
 			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
 			<property name="javaFileEncoding" value="UTF-8"/>  

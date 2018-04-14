@@ -117,9 +117,9 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
 	private Map<String, String> parseDataFromMybatisGenerator(Generator generator) {
 		MybatisGenerator mybatisGenerator = generator.getMybatisGenerator();
     	Map<String, String> data = Maps.newHashMap();
-		data.put("mapperPackage", mybatisGenerator.getModelGenerator().getTargetPackage());
+		data.put("mapperPackage", mybatisGenerator.getMapperGenerator().getTargetPackage());
 		data.put("mappingPackage", mybatisGenerator.getMappingGenerator().getTargetPackage());
-		data.put("modelPackage", mybatisGenerator.getMapperGenerator().getTargetPackage());
+		data.put("modelPackage", mybatisGenerator.getModelGenerator().getTargetPackage());
 		return data;
 	}
 	
@@ -343,9 +343,9 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
 		data.put("connectionURL", jdbcConnection.getUrl());
 		data.put("password", jdbcConnection.getPassword());
 		data.put("userId", jdbcConnection.getUserName());
-		data.put("mapperPackage", generator.getModelGenerator().getTargetPackage());
+		data.put("mapperPackage", generator.getMapperGenerator().getTargetPackage());
 		data.put("mappingPackage", generator.getMappingGenerator().getTargetPackage());
-		data.put("modelPackage", generator.getMapperGenerator().getTargetPackage());
+		data.put("modelPackage", generator.getModelGenerator().getTargetPackage());
 		data.put("tables", tables);
 		String jdbcUrl = jdbcConnection.getUrl();
 		data.put("schema", jdbcUrl.substring(jdbcUrl.lastIndexOf("/") + 1, jdbcUrl.length()));
