@@ -41,7 +41,6 @@ import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.mybatis.generator.logging.LogFactory;
 import org.xml.sax.SAXException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -80,14 +79,6 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public void toJSONString(Object obj){
-		try {
-			System.err.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void execute() throws MojoExecutionException {
     	String xmlPath = configurationFile.getAbsolutePath();
     	logInfo("");
@@ -431,10 +422,10 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
 			URL resource = getResource("generator.xsd");
 			schema = schemaFactory.newSchema(resource);
 		} catch (SAXException e) {
-			logError("validation fail : " + e.getMessage());
+			logError("Validation fail : " + e.getMessage());
 			throw Throwables.propagate(e);
 		} catch (Exception e) {
-			logError("validation fail : " + e.getMessage());
+			logError("Validation fail : " + e.getMessage());
 			throw Throwables.propagate(e);
 		}
 		Validator validator = schema.newValidator();
@@ -442,7 +433,7 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
 		try {
 			validator.validate(source);
 		} catch (Exception e) {
-			logError("validation fail : " + e.getMessage());
+			logError("Validation fail : " + e.getMessage());
 			throw Throwables.propagate(e);
 		}
 		return true;
