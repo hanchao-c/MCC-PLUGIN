@@ -1,6 +1,8 @@
-package org.x.generate.core;
+package org.x.util;
 
-public class Throwables {
+import org.x.generater.xml.MavenPluginGeneratorBuildingException;
+
+public class ThrowableUtil {
 
 	
 	public static MavenPluginGeneratorBuildingException throwOf(String message){

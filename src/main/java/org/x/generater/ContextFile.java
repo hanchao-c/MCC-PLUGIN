@@ -1,4 +1,4 @@
-package org.x.generate.core;
+package org.x.generater;
 
 public class ContextFile {
 
@@ -19,6 +19,11 @@ public class ContextFile {
 
 	public void setContext(String context) {
 		this.context = context;
+	}
+
+	@Override
+	public String toString() {
+		return "ContextFile [filePath=" + filePath + ", context=" + context + "]";
 	}
 	
 	

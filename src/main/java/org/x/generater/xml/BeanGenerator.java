@@ -1,15 +1,24 @@
-package org.x.generate.core;
+package org.x.generater.xml;
 
-public class BaseBeanGenerator {
+public class BeanGenerator{
 
 	private String targetPackage;
+	private String suffix;
+
+	public BeanGenerator() {
+	}
 	
-	public BaseBeanGenerator() {
+	public BeanGenerator(String targetPackage, String suffix) {
+		this.targetPackage = targetPackage;
+		this.suffix = suffix;
 	}
 
-	public BaseBeanGenerator(String targetPackage) {
-		super();
-		this.targetPackage = targetPackage;
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
 	}
 
 	public String getTargetPackage() {
@@ -20,11 +29,6 @@ public class BaseBeanGenerator {
 		this.targetPackage = targetPackage;
 	}
 
-	@Override
-	public String toString() {
-		return "BaseBeanGenerator [targetPackage=" + targetPackage + "]";
-	}
-	
 	
 	public String buildJavaFilePath(String fileName){
 		return "src/main/java/" + this.getTargetPackage().replace(".", "/") + "/" + fileName + ".java";
@@ -35,4 +39,5 @@ public class BaseBeanGenerator {
 	}
 
 	
+
 }
