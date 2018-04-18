@@ -1,6 +1,8 @@
-package org.x.generate.core;
+package org.x.generater.xml;
 
 import org.apache.commons.lang3.StringUtils;
+import org.x.util.StringCaseUtil;
+import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -8,11 +10,11 @@ public class MybatisGenerator implements Rebuilder{
 
 	private JdbcConnection jdbcConnection;
 	@JacksonXmlProperty(localName = "model")
-	private BaseBeanGenerator modelGenerator;
+	private BeanGenerator modelGenerator;
 	@JacksonXmlProperty(localName = "mapping")
-	private BaseBeanGenerator mappingGenerator;
+	private BeanGenerator mappingGenerator;
 	@JacksonXmlProperty(localName = "mapper")
-	private BaseBeanGenerator mapperGenerator;
+	private BeanGenerator mapperGenerator;
 	
 	@JacksonXmlProperty(isAttribute = true)
 	private String targetPackage;
@@ -27,27 +29,27 @@ public class MybatisGenerator implements Rebuilder{
 		this.jdbcConnection = jdbcConnection;
 	}
 
-	public BaseBeanGenerator getModelGenerator() {
+	public BeanGenerator getModelGenerator() {
 		return modelGenerator;
 	}
 
-	public void setModelGenerator(BaseBeanGenerator modelGenerator) {
+	public void setModelGenerator(BeanGenerator modelGenerator) {
 		this.modelGenerator = modelGenerator;
 	}
 
-	public BaseBeanGenerator getMappingGenerator() {
+	public BeanGenerator getMappingGenerator() {
 		return mappingGenerator;
 	}
 
-	public void setMappingGenerator(BaseBeanGenerator mappingGenerator) {
+	public void setMappingGenerator(BeanGenerator mappingGenerator) {
 		this.mappingGenerator = mappingGenerator;
 	}
 
-	public BaseBeanGenerator getMapperGenerator() {
+	public BeanGenerator getMapperGenerator() {
 		return mapperGenerator;
 	}
 
-	public void setMapperGenerator(BaseBeanGenerator mapperGenerator) {
+	public void setMapperGenerator(BeanGenerator mapperGenerator) {
 		this.mapperGenerator = mapperGenerator;
 	}
 
@@ -77,23 +79,24 @@ public class MybatisGenerator implements Rebuilder{
 
 	@Override
 	public void rebuild() {
-		modelGenerator = rebuildGenerator(modelGenerator, "model");
-		mappingGenerator = rebuildGenerator(mappingGenerator, "mapping");
-		mapperGenerator = rebuildGenerator(mapperGenerator, "mapper");
+		modelGenerator = rebuildGenerator(modelGenerator, "model", null);
+		mappingGenerator = rebuildGenerator(mappingGenerator, "mapping", null);
+		mapperGenerator = rebuildGenerator(mapperGenerator, "mapper", StringCaseUtil.toUpper("Mapper"));
 	}
 
-	private BaseBeanGenerator rebuildGenerator(BaseBeanGenerator generator, String packageSuffix) {
+	private BeanGenerator rebuildGenerator(BeanGenerator generator, String packageSuffix, String suffix) {
+		suffix = StringUtils.trimToEmpty(suffix);
 		if(null == generator){
 			if(StringUtils.isBlank(this.getTargetPackage())){
-				Throwables.throwOf("set attribute 'targetPackage' on tag <mybatisGenerator /> or it's sub tags <model />,<mapper />,<mapping />");
+				ThrowableUtil.throwOf("set attribute 'targetPackage' on tag <mybatisGenerator /> or it's sub tags <model />,<mapper />,<mapping />");
 			}
-			generator = new BaseBeanGenerator(getTargetPackage() + "." + packageSuffix);
+			generator = new BeanGenerator(getTargetPackage() + "." + packageSuffix, suffix);
 		}else{
 			if(StringUtils.isBlank(generator.getTargetPackage())){
 				if(StringUtils.isBlank(this.getTargetPackage())){
-					Throwables.throwOf("set attribute 'targetPackage' on tag <mybatisGenerator /> or it's sub tags <model />,<mapper />,<mapping />");
+					ThrowableUtil.throwOf("set attribute 'targetPackage' on tag <mybatisGenerator /> or it's sub tags <model />,<mapper />,<mapping />");
 				}
-				generator = new BaseBeanGenerator(this.getTargetPackage()+ "." + packageSuffix);
+				generator = new BeanGenerator(generator.getTargetPackage(), suffix);
 			}
 		}
 		return generator;

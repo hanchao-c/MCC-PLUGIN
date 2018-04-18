@@ -1,9 +1,10 @@
-package org.x.generate.core;
+package org.x.generater.xml;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -66,7 +67,7 @@ public class Generator implements Rebuilder{
 	@Override
 	public void rebuild() {
 		if(isEmpty(this.tables)){
-			Throwables.throwOf("No definition is found of <table />");
+			ThrowableUtil.throwOf("No definition is found of <table />");
 		}
 		if(null == this.contextGenerator){
 			skippedContext = true;
@@ -74,13 +75,13 @@ public class Generator implements Rebuilder{
 			contextGenerator.rebuild();
 		}
 		if(null == mybatisGenerator){
-			Throwables.throwOf("none tag <mybatisGenerator /> set");
+			ThrowableUtil.throwOf("none tag <mybatisGenerator /> set");
 		}
 		mybatisGenerator.rebuild();
 		
 		for (Table table : tables) {
 			if(StringUtils.isAnyBlank(table.getDomainObjectName(), table.getTableName())){
-				Throwables.throwOf("No values are set for attribute domainObjectName or tableName on tag <table />");
+				ThrowableUtil.throwOf("No values are set for attribute domainObjectName or tableName on tag <table />");
 			}
 			table.setDomainObjectName(toUpper(table.getDomainObjectName()));
 		}

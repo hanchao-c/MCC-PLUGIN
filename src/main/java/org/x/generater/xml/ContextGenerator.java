@@ -1,6 +1,8 @@
-package org.x.generate.core;
+package org.x.generater.xml;
 
 import org.apache.commons.lang3.StringUtils;
+import org.x.util.StringCaseUtil;
+import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -23,9 +25,9 @@ public class ContextGenerator implements Rebuilder{
 	@Override
 	public void rebuild() {
 		if(inUsing){
-			controllerGenerator = rebuildGenerator(controllerGenerator, toUpper("Controller"));
-			serviceGenerator = rebuildGenerator(serviceGenerator, toUpper("Service"));
-			repositoryGenerator = rebuildGenerator(repositoryGenerator, toUpper("Repository"));
+			controllerGenerator = rebuildGenerator(controllerGenerator, StringCaseUtil.toUpper("Controller"));
+			serviceGenerator = rebuildGenerator(serviceGenerator, StringCaseUtil.toUpper("Service"));
+			repositoryGenerator = rebuildGenerator(repositoryGenerator, StringCaseUtil.toUpper("Repository"));
 		}
 	}
 	
@@ -34,45 +36,28 @@ public class ContextGenerator implements Rebuilder{
 		
 	}
 
-	public static String exchangeCase(String str) {
-	    String result = str.substring(0, 1).toUpperCase() + str.substring(1);
-	    if(str.equals(result)){
-	    	return toUpper(str);
-	    }else{
-	    	return toLower(str);
-	    }
-	}
-	
-	public static String toUpper(String str){
-		return str.substring(0, 1).toUpperCase() + str.substring(1);
-	}
-	
-	public static String toLower(String str){
-		return str.substring(0, 1).toLowerCase() + str.substring(1);
-	}
-	
 	private BeanGenerator rebuildGenerator(BeanGenerator generator, String suffix) {
-		suffix = toUpper(suffix);
+		suffix = StringCaseUtil.toUpper(suffix);
 		if(null == generator){
 			if(StringUtils.isBlank(this.getTargetPackage())){
-				Throwables.throwOf("set attribute 'targetPackage' on tag <contextGenerator /> or it's sub tags <controller />,<service />,<repository />");
+				ThrowableUtil.throwOf("set attribute 'targetPackage' on tag <contextGenerator /> or it's sub tags <controller />,<service />,<repository />");
 			}
-			generator = new BeanGenerator(this.getTargetPackage() + "." + toLower(suffix) , suffix);
+			generator = new BeanGenerator(this.getTargetPackage() + "." + StringCaseUtil.toLower(suffix) , suffix);
 		}else{
 			if(StringUtils.isBlank(generator.getSuffix())){
 				generator.setSuffix(suffix);
 			}else{
-				generator.setSuffix(toUpper(generator.getSuffix()));
+				generator.setSuffix(StringCaseUtil.toUpper(generator.getSuffix()));
 				suffix = generator.getSuffix();
 			}
 			if(StringUtils.isBlank(generator.getTargetPackage())){
 				if(StringUtils.isBlank(this.getTargetPackage())){
-					Throwables.throwOf("set attribute 'targetPackage' on tag <contextGenerator /> or it's sub tags <controller />,<service />,<repository />");
+					ThrowableUtil.throwOf("set attribute 'targetPackage' on tag <contextGenerator /> or it's sub tags <controller />,<service />,<repository />");
 				}
 				if(suffix.equals(suffix.toUpperCase())){
 					generator.setTargetPackage(this.getTargetPackage() + "." + suffix);
 				}else{
-					generator.setTargetPackage(this.getTargetPackage() + "." + toLower(suffix));
+					generator.setTargetPackage(this.getTargetPackage() + "." + StringCaseUtil.toLower(suffix));
 				}
 			}
 		}

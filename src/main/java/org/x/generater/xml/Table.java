@@ -1,4 +1,4 @@
-package org.x.generate.core;
+package org.x.generater.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
