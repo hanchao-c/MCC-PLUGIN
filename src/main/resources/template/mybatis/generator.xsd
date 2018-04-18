@@ -55,7 +55,9 @@
 		<xs:sequence>
 			<xs:element name="controller" type="controller" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="service" type="service" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="serviceImpl" type="serviceImpl" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="repository" type="repository" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="repositoryImpl" type="repositoryImpl" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
@@ -83,12 +85,26 @@
 		<xs:attribute name="overwrite" type="booleanType" use="optional" default="true" />
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Service" />
 	</xs:complexType>
+	
+	<xs:complexType name="serviceImpl">
+		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
+		<xs:attribute name="templatePath" type="stringtype" use="optional" />
+		<xs:attribute name="overwrite" type="booleanType" use="optional" default="true" />
+		<xs:attribute name="suffix" type="stringtype" use="optional" default="ServiceImpl" />
+	</xs:complexType>
 
 	<xs:complexType name="repository">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional" default="true" />
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Repository" />
+	</xs:complexType>
+	
+	<xs:complexType name="repositoryImpl">
+		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
+		<xs:attribute name="templatePath" type="stringtype" use="optional" />
+		<xs:attribute name="overwrite" type="booleanType" use="optional" default="true" />
+		<xs:attribute name="suffix" type="stringtype" use="optional" default="RepositoryImpl" />
 	</xs:complexType>
 	
 	<xs:complexType name="table">
