@@ -87,9 +87,8 @@ public class GeneratorMojo extends AbstractMojo {
 		buildMybatisGenerateModel(mybatisGenerator, tables);
 		generateMyBatisCode(mybatisGenerator.getOverwrite(), tables);
 		if(generator.skippedContextGenerator()){
-			logger.info("");
 			logger.info("Context generation skipped");
-			logger.info("");
+			return;
 		}
 		buildContextGeneratorModel(generator, tables);
 		generateContextCode(tables, contextGenerator.getOverwrite());
