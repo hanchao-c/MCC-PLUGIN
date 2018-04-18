@@ -4,6 +4,7 @@ public class BeanGenerator{
 
 	private String targetPackage;
 	private String suffix;
+	private String templatePath;
 
 	public BeanGenerator() {
 	}
@@ -28,16 +29,17 @@ public class BeanGenerator{
 	public void setTargetPackage(String targetPackage) {
 		this.targetPackage = targetPackage;
 	}
+	
+	public String getTemplatePath() {
+		return templatePath;
+	}
 
+	public void setTemplatePath(String templatePath) {
+		this.templatePath = templatePath;
+	}
 	
 	public String buildJavaFilePath(String fileName){
 		return "src/main/java/" + this.getTargetPackage().replace(".", "/") + "/" + fileName + ".java";
 	}
 	
-	public String buildJavaFilePath(String prefix, String fileName){
-		return "src/main/java/" + this.getTargetPackage().replace(".", "/") + "/" + prefix + "/" + fileName + ".java";
-	}
-
-	
-
 }

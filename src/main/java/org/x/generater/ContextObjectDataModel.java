@@ -1,6 +1,5 @@
 package org.x.generater;
 
-import org.apache.commons.lang3.StringUtils;
 import org.x.generater.xml.BeanGenerator;
 import org.x.util.StringCaseUtil;
 
@@ -17,15 +16,8 @@ public class ContextObjectDataModel {
 	
 	public ContextObjectDataModel(String objectName, BeanGenerator beanGenerator) {
 		this.objectName = objectName + beanGenerator.getSuffix();
-		accept(beanGenerator, null);
+		accept(beanGenerator);
 	}
-	
-	public ContextObjectDataModel(String objectName, BeanGenerator beanGenerator, String implSuffix) {
-		String upper = StringCaseUtil.toUpper(implSuffix);
-		this.objectName = objectName + beanGenerator.getSuffix() + upper;
-		accept(beanGenerator, upper);
-	}
-	
 	
 	public String getTargetPackage() {
 		return targetPackage;
@@ -51,18 +43,11 @@ public class ContextObjectDataModel {
 		this.lowObjectName = lowObjectName;
 	}
 	
-	private void accept(BeanGenerator beanGenerator, String implSuffix){
-		if(StringUtils.isBlank(StringUtils.trimToNull(implSuffix))){
-			this.setLowObjectName(StringCaseUtil.toLower(this.objectName));
-			this.setTargetPackage(beanGenerator.getTargetPackage());
-			this.setSuffix(beanGenerator.getSuffix());
-			this.setFileTargetPath(beanGenerator.buildJavaFilePath(this.objectName));
-		}else{
-			this.setLowObjectName(StringCaseUtil.toLower(this.objectName));
-			this.setTargetPackage(beanGenerator.getTargetPackage() + "." + StringCaseUtil.toLower(implSuffix));
-			this.setSuffix(beanGenerator.getSuffix() + StringCaseUtil.toUpper(implSuffix));
-			this.setFileTargetPath(beanGenerator.buildJavaFilePath("impl", this.objectName));
-		}
+	private void accept(BeanGenerator beanGenerator){
+		this.setLowObjectName(StringCaseUtil.toLower(this.objectName));
+		this.setTargetPackage(beanGenerator.getTargetPackage());
+		this.setSuffix(beanGenerator.getSuffix());
+		this.setFileTargetPath(beanGenerator.buildJavaFilePath(this.objectName));
 	}
 
 	@Override

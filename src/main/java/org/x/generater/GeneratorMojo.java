@@ -172,7 +172,9 @@ public class GeneratorMojo extends AbstractMojo {
 		ContextGenerator contextGenerator = generator.getContextGenerator();
 		BeanGenerator controller = contextGenerator.getControllerGenerator();
 		BeanGenerator service = contextGenerator.getServiceGenerator();
+		BeanGenerator serviceImpl = contextGenerator.getServiceImplGenerator();
 		BeanGenerator repository = contextGenerator.getRepositoryGenerator();
+		BeanGenerator repositoryImpl = contextGenerator.getRepositoryImplGenerator();
 		MybatisGenerator mybatisGenerator = generator.getMybatisGenerator();
 		BeanGenerator model = mybatisGenerator.getModelGenerator();
 		BeanGenerator mapper = mybatisGenerator.getMapperGenerator();
@@ -181,9 +183,9 @@ public class GeneratorMojo extends AbstractMojo {
 			String domainObjectName = table.getDomainObjectName();
 			models.put(GenerateResourceType.FTL_CONTROLLER.getSubject(), new ContextObjectDataModel(domainObjectName, controller));
 			models.put(GenerateResourceType.FTL_SERVICE.getSubject(), new ContextObjectDataModel(domainObjectName, service));
-			models.put(GenerateResourceType.FTL_SERVICE_IMPL.getSubject(), new ContextObjectDataModel(domainObjectName, service, "Impl"));
+			models.put(GenerateResourceType.FTL_SERVICE_IMPL.getSubject(), new ContextObjectDataModel(domainObjectName, serviceImpl));
 			models.put(GenerateResourceType.FTL_REPOSITORY.getSubject(), new ContextObjectDataModel(domainObjectName, repository));
-			models.put(GenerateResourceType.FTL_REPOSITORY_IMPL.getSubject(), new ContextObjectDataModel(domainObjectName, repository, "Impl"));
+			models.put(GenerateResourceType.FTL_REPOSITORY_IMPL.getSubject(), new ContextObjectDataModel(domainObjectName, repositoryImpl));
 			models.put(GenerateResourceType.MODEL.getSubject(), new ContextObjectDataModel(domainObjectName, model));
 			models.put(GenerateResourceType.MAPPER.getSubject(), new ContextObjectDataModel(domainObjectName, mapper));
 			contextGeneratorDataModel.put(domainObjectName, models);
