@@ -21,6 +21,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -42,6 +43,7 @@ import org.x.generater.xml.Generator;
 import org.x.generater.xml.JdbcConnection;
 import org.x.generater.xml.MybatisGenerator;
 import org.x.generater.xml.PropertiesHandler;
+import org.x.generater.xml.Property;
 import org.x.generater.xml.Table;
 import org.x.resource.ClassPathResource;
 import org.x.resource.FilePathResource;
@@ -61,8 +63,11 @@ import freemarker.template.Template;
 public class GeneratorMojo extends AbstractMojo {
 
 	
-    @Parameter(defaultValue="${project.basedir}/src/main/resources/generator.xml", required=true)
+    @Parameter(defaultValue = "${project.basedir}/src/main/resources/generator.xml", required = true)
     private File configurationFile;
+    
+    @Parameter(defaultValue = "${project.basedir}/", required = true)
+    private String projectResourceBaseDir;
     
     private final Log logger = getLog();
     
@@ -70,6 +75,7 @@ public class GeneratorMojo extends AbstractMojo {
     private final Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
     private final Map<String, Object> mybatisGenerateDataModel =  Maps.newHashMap();
     private final Map<String, Map<String, ContextObjectDataModel>> contextGeneratorDataModel = Maps.newHashMap();
+    private final Map<String, Object> propertiesMap = Maps.newHashMap();
     
     void init(){
     	loadGenerateConfigs();
@@ -90,8 +96,48 @@ public class GeneratorMojo extends AbstractMojo {
 			logger.info("Context generation skipped");
 			return;
 		}
+		replaceTemplates(contextGenerator);
 		buildContextGeneratorModel(generator, tables);
 		generateContextCode(tables, contextGenerator.getOverwrite());
+	}
+	
+	private void replaceTemplates(ContextGenerator contextGenerator) {
+		BeanGenerator controllerGenerator = contextGenerator.getControllerGenerator();
+		BeanGenerator serviceGenerator = contextGenerator.getServiceGenerator();
+		BeanGenerator serviceImplGenerator = contextGenerator.getServiceImplGenerator();
+		BeanGenerator repositoryGenerator = contextGenerator.getRepositoryGenerator();
+		BeanGenerator repositoryImplGenerator = contextGenerator.getRepositoryImplGenerator();
+		replaceTemplate(GenerateResourceType.FTL_CONTROLLER, controllerGenerator);
+		replaceTemplate(GenerateResourceType.FTL_SERVICE, serviceGenerator);
+		replaceTemplate(GenerateResourceType.FTL_SERVICE_IMPL, serviceImplGenerator);
+		replaceTemplate(GenerateResourceType.FTL_REPOSITORY, repositoryGenerator);
+		replaceTemplate(GenerateResourceType.FTL_REPOSITORY_IMPL, repositoryImplGenerator);
+	}
+
+	private void replaceTemplate(GenerateResourceType type, BeanGenerator generator) {
+		if(StringUtils.isNotBlank(generator.getTemplatePath())){
+			String filePath;
+			if(StringUtils.startsWithAny(generator.getTemplatePath(), "/src/main", "src/main")){
+				filePath = projectResourceBaseDir + cutStartSeparater(generator.getTemplatePath());
+			}else{
+				filePath = projectResourceBaseDir + "src/main/resources/" + cutStartSeparater(generator.getTemplatePath());
+			}
+			File file = new File(filePath);
+			if(!file.exists()){
+				logger.error("Template not found. " + filePath);
+				return;
+			}
+			logger.info("Replace template of '" + type.getSubject() + "' with file : " + filePath);
+			StringTemplateLoader templateLoader = (StringTemplateLoader) configuration.getTemplateLoader();
+			templateLoader.putTemplate(type.name(), new FilePathResource(filePath).getAsString());
+		}
+	}
+	
+	private String cutStartSeparater(String source){
+		if(StringUtils.startsWith(source, "/")){
+			return StringUtils.substring(source, 1);
+		}
+		return source;
 	}
 	
 	private void generateContextCode(List<Table> tables, boolean overwrite) {
@@ -161,8 +207,14 @@ public class GeneratorMojo extends AbstractMojo {
 	private ContextFile processFile(GenerateResourceType type, Map<String, ContextObjectDataModel> model) {
 		ContextFile contextFile = new ContextFile();
 		ContextObjectDataModel contextObjectDataModel = model.get(type.getSubject());
-		contextFile.setContext(process(type, model));
 		contextFile.setFilePath(contextObjectDataModel.getFileTargetPath());
+		Map<String, Object> data = Maps.newHashMap();
+		Set<Entry<String, ContextObjectDataModel>> entrySet = model.entrySet();
+		for (Entry<String, ContextObjectDataModel> entry : entrySet) {
+			data.put(entry.getKey(), entry.getValue());
+		}
+		data.putAll(this.propertiesMap);
+		contextFile.setContext(process(type, data));
 		logger.info("Generating " + Files.getNameWithoutExtension(contextFile.getFilePath()) + " class ");
 		return contextFile;
 	}
@@ -188,6 +240,12 @@ public class GeneratorMojo extends AbstractMojo {
 			models.put(GenerateResourceType.MODEL.getSubject(), new ContextObjectDataModel(domainObjectName, model));
 			models.put(GenerateResourceType.MAPPER.getSubject(), new ContextObjectDataModel(domainObjectName, mapper));
 			contextGeneratorDataModel.put(domainObjectName, models);
+		}
+		
+		List<Property> properties = generator.getProperties();
+		for (Property property : properties) {
+			propertiesMap.put("p_" + property.getName(), property.getValue());
+			propertiesMap.put(property.getName(), property.getValue());
 		}
 	}
 
