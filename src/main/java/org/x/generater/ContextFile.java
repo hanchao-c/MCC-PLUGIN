@@ -4,6 +4,7 @@ public class ContextFile {
 
 	private String filePath;
 	private String context;
+	private boolean overwirte;
 
 	public String getFilePath() {
 		return filePath;
@@ -21,10 +22,19 @@ public class ContextFile {
 		this.context = context;
 	}
 
+	public boolean isOverwirte() {
+		return overwirte;
+	}
+
+	public void setOverwirte(boolean overwirte) {
+		this.overwirte = overwirte;
+	}
+
 	@Override
 	public String toString() {
-		return "ContextFile [filePath=" + filePath + ", context=" + context + "]";
+		return "ContextFile [filePath=" + filePath + ", context=" + context + ", overwirte=" + overwirte + "]";
 	}
+	
 	
 	
 

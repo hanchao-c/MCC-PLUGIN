@@ -19,6 +19,8 @@ public class ContextGenerator implements Rebuilder{
 	private BeanGenerator repositoryGenerator;
 	@JacksonXmlProperty(localName = "repositoryImpl")
 	private BeanGenerator repositoryImplGenerator;
+	@JacksonXmlProperty(localName = "mock")
+	private BeanGenerator modelMockGenerator;
 
 	@JacksonXmlProperty(isAttribute = true)
 	private String targetPackage;
@@ -40,6 +42,21 @@ public class ContextGenerator implements Rebuilder{
 			serviceImplGenerator = rebuildGenerator(serviceImplGenerator, StringCaseUtil.toUpper("ServiceImpl"), true, ImplType.SERVICE);
 			repositoryGenerator = rebuildGenerator(repositoryGenerator, StringCaseUtil.toUpper("Repository"), false, null);
 			repositoryImplGenerator = rebuildGenerator(repositoryImplGenerator, StringCaseUtil.toUpper("RepositoryImpl"), true, ImplType.REPOSITORY);
+			rebuildMockGenerator();
+		}
+	}
+
+	private void rebuildMockGenerator() {
+		if(null != modelMockGenerator){
+			if(StringUtils.isBlank(modelMockGenerator.getSuffix())){
+				modelMockGenerator.setSuffix("Mock");
+			}
+			if(StringUtils.isBlank(modelMockGenerator.getTargetPackage())){
+				modelMockGenerator.setTargetPackage(targetPackage + "." + StringCaseUtil.toLower(modelMockGenerator.getSuffix()));
+			}
+			if(null == modelMockGenerator.getOverwrite()){
+				modelMockGenerator.setOverwrite(overwrite);
+			}
 		}
 	}
 	
@@ -96,6 +113,9 @@ public class ContextGenerator implements Rebuilder{
 				
 				
 			}
+		}
+		if(null == generator.getOverwrite()){
+			generator.setOverwrite(overwrite);
 		}
 		return generator;
 	}
@@ -162,6 +182,14 @@ public class ContextGenerator implements Rebuilder{
 
 	public void setInUsing(Boolean inUsing) {
 		this.inUsing = inUsing;
+	}
+
+	public BeanGenerator getModelMockGenerator() {
+		return modelMockGenerator;
+	}
+
+	public void setModelMockGenerator(BeanGenerator modelMockGenerator) {
+		this.modelMockGenerator = modelMockGenerator;
 	}
 
 

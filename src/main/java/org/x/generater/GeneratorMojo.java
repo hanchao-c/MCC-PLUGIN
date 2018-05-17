@@ -98,7 +98,9 @@ public class GeneratorMojo extends AbstractMojo {
 		}
 		replaceTemplates(contextGenerator);
 		buildContextGeneratorModel(generator, tables);
-		generateContextCode(tables, contextGenerator.getOverwrite());
+		generateContextCode(tables, contextGenerator);
+		BeanGenerator modelMockGenerator = contextGenerator.getModelMockGenerator();
+		logger.info("modelMockGenerator..." + modelMockGenerator);
 	}
 	
 	private void replaceTemplates(ContextGenerator contextGenerator) {
@@ -140,7 +142,7 @@ public class GeneratorMojo extends AbstractMojo {
 		return source;
 	}
 	
-	private void generateContextCode(List<Table> tables, boolean overwrite) {
+	private void generateContextCode(List<Table> tables, ContextGenerator contextGenerator) {
 		logger.info("");
 		logger.info("Generate context start");
 		logger.info("------------------------------------------------------------------------");
@@ -150,11 +152,11 @@ public class GeneratorMojo extends AbstractMojo {
 		List<String> savings = Lists.newArrayList();
 		for (Entry<String, Map<String, ContextObjectDataModel>> entry : entrySet) {
 			Map<String, ContextObjectDataModel> model = entry.getValue();
-			contextFiles.add(processFile(GenerateResourceType.FTL_CONTROLLER, model));
-			contextFiles.add(processFile(GenerateResourceType.FTL_SERVICE, model));
-			contextFiles.add(processFile(GenerateResourceType.FTL_SERVICE_IMPL, model));
-			contextFiles.add(processFile(GenerateResourceType.FTL_REPOSITORY, model));
-			contextFiles.add(processFile(GenerateResourceType.FTL_REPOSITORY_IMPL, model));
+			contextFiles.add(processFile(GenerateResourceType.FTL_CONTROLLER, model, contextGenerator.getControllerGenerator().getOverwrite()));
+			contextFiles.add(processFile(GenerateResourceType.FTL_SERVICE, model, contextGenerator.getServiceGenerator().getOverwrite()));
+			contextFiles.add(processFile(GenerateResourceType.FTL_SERVICE_IMPL, model, contextGenerator.getServiceImplGenerator().getOverwrite()));
+			contextFiles.add(processFile(GenerateResourceType.FTL_REPOSITORY, model, contextGenerator.getRepositoryGenerator().getOverwrite()));
+			contextFiles.add(processFile(GenerateResourceType.FTL_REPOSITORY_IMPL, model, contextGenerator.getRepositoryImplGenerator().getOverwrite()));
 		}
 		
 		String index = DateFormatUtils.format(new Date(), "yyyyMMddHHmmss");
@@ -168,7 +170,7 @@ public class GeneratorMojo extends AbstractMojo {
 			if(!file.exists()){
 				write(contextFile, file, savings);
 			}else{
-				if(overwrite){
+				if(contextFile.isOverwirte()){
 					file.delete();
 					File fileOther = new File(contextFile.getFilePath());
 					write(contextFile, fileOther, savings);
@@ -204,7 +206,7 @@ public class GeneratorMojo extends AbstractMojo {
 		}
 	}
 	
-	private ContextFile processFile(GenerateResourceType type, Map<String, ContextObjectDataModel> model) {
+	private ContextFile processFile(GenerateResourceType type, Map<String, ContextObjectDataModel> model, boolean overwrite) {
 		ContextFile contextFile = new ContextFile();
 		ContextObjectDataModel contextObjectDataModel = model.get(type.getSubject());
 		contextFile.setFilePath(contextObjectDataModel.getFileTargetPath());
@@ -215,6 +217,7 @@ public class GeneratorMojo extends AbstractMojo {
 		}
 		data.putAll(this.propertiesMap);
 		contextFile.setContext(process(type, data));
+		contextFile.setOverwirte(overwrite);
 		logger.info("Generating " + Files.getNameWithoutExtension(contextFile.getFilePath()) + " class ");
 		return contextFile;
 	}

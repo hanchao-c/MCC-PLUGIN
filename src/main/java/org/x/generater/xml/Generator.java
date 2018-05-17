@@ -63,7 +63,6 @@ public class Generator implements Rebuilder{
 				+ mybatisGenerator + ", tables=" + tables + "]";
 	}
 
-
 	@Override
 	public void rebuild() {
 		if(isEmpty(this.tables)){
@@ -108,7 +107,6 @@ public class Generator implements Rebuilder{
 		
 	}
 	
-	
 	private static boolean isEmpty(Collection<?> collection){
 		return null == collection || collection.isEmpty();
 	}
@@ -118,10 +116,5 @@ public class Generator implements Rebuilder{
 		
 	}
 
-	
-	/*private static boolean isEmpty(Map<?, ?> map){
-		return null == map || map.isEmpty();
-	}
-	*/
 
 }

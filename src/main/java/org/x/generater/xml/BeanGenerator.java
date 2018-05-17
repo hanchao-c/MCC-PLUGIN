@@ -5,6 +5,7 @@ public class BeanGenerator{
 	private String targetPackage;
 	private String suffix;
 	private String templatePath;
+	private Boolean overwrite;
 
 	public BeanGenerator() {
 	}
@@ -38,8 +39,26 @@ public class BeanGenerator{
 		this.templatePath = templatePath;
 	}
 	
+	public Boolean getOverwrite() {
+		return overwrite;
+	}
+
+	public void setOverwrite(Boolean overwrite) {
+		this.overwrite = overwrite;
+	}
+	
+	
 	public String buildJavaFilePath(String fileName){
 		return "src/main/java/" + this.getTargetPackage().replace(".", "/") + "/" + fileName + ".java";
 	}
+
+	@Override
+	public String toString() {
+		return "BeanGenerator [targetPackage=" + targetPackage + ", suffix=" + suffix + ", templatePath=" + templatePath
+				+ ", overwrite=" + overwrite + "]";
+	}
 	
+	
+
+
 }
