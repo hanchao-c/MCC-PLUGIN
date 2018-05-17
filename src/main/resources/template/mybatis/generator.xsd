@@ -8,7 +8,7 @@
 			<xs:sequence>
 				<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded" />
 				<xs:element name="contextGenerator" type="contextGenerator" minOccurs="0" maxOccurs="1"/>
-				<xs:element name="mockGenerator" type="mock" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="mockGenerator" type="mockGenerator" minOccurs="0" maxOccurs="1"/>
 				<xs:element name="mybatisGenerator" type="mybatisGenerator" minOccurs="1" maxOccurs="1"/>
 				<xs:element name="table" type="table" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
@@ -31,12 +31,11 @@
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
 	</xs:complexType>
 	
-	<xs:element name="mockGenerator">
+	<xs:complexType name="mockGenerator">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Mock" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
-	</xs:element>
-	
+	</xs:complexType>
 	
 	<xs:complexType name="model">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
