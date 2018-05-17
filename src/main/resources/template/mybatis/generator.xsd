@@ -58,7 +58,7 @@
 			<xs:element name="serviceImpl" type="serviceImpl" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="repository" type="repository" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="repositoryImpl" type="repositoryImpl" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="modelMock" type="modelMock" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="mock" type="modelMock" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
