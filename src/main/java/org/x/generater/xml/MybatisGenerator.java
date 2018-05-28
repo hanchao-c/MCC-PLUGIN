@@ -99,6 +99,10 @@ public class MybatisGenerator implements Rebuilder{
 				generator = new BeanGenerator(generator.getTargetPackage(), suffix);
 			}
 		}
+		
+		if(null == generator.getOverwrite()) {
+			generator.setOverwrite(overwrite);
+		}
 		return generator;
 	}
 

@@ -10,6 +10,7 @@ public class ContextObjectDataModel {
 	private String lowObjectName;
 	private String suffix;
 	private String fileTargetPath;
+	private boolean overwrite;
 	
 	public ContextObjectDataModel() {
 	}
@@ -48,12 +49,7 @@ public class ContextObjectDataModel {
 		this.setTargetPackage(beanGenerator.getTargetPackage());
 		this.setSuffix(beanGenerator.getSuffix());
 		this.setFileTargetPath(beanGenerator.buildJavaFilePath(this.objectName));
-	}
-
-	@Override
-	public String toString() {
-		return "ContextObjectDataModel [targetPackage=" + targetPackage + ", objectName=" + objectName
-				+ ", lowObjectName=" + lowObjectName + "]";
+		this.setOverwrite(beanGenerator.getOverwrite());
 	}
 
 	public String getSuffix() {
@@ -72,5 +68,19 @@ public class ContextObjectDataModel {
 		this.fileTargetPath = fileTargetPath;
 	}
 
+	public boolean isOverwrite() {
+		return overwrite;
+	}
 
-}
+	public void setOverwrite(boolean overwrite) {
+		this.overwrite = overwrite;
+	}
+
+	@Override
+	public String toString() {
+		return "ContextObjectDataModel [targetPackage=" + targetPackage + ", objectName=" + objectName
+				+ ", lowObjectName=" + lowObjectName + ", suffix=" + suffix + ", fileTargetPath=" + fileTargetPath
+				+ ", overwrite=" + overwrite + "]";
+	}
+	
+	}

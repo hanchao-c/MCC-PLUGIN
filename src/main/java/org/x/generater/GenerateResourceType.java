@@ -7,6 +7,7 @@ public enum GenerateResourceType {
 	FTL_SERVICE_IMPL("serviceImpl"),
 	FTL_REPOSITORY("repository"),
 	FTL_REPOSITORY_IMPL("repositoryImpl"),
+	MOCK("mock"),
 	XML_MYBATIS_GENERATOR,
 	XML_GENERATOR,
 	XSD_GENERATOR,

@@ -2,6 +2,7 @@ package org.x.generater;
 
 public class ContextFile {
 
+	private GenerateResourceType type;
 	private String filePath;
 	private String context;
 	private boolean overwirte;
@@ -30,9 +31,18 @@ public class ContextFile {
 		this.overwirte = overwirte;
 	}
 
+	public GenerateResourceType getType() {
+		return type;
+	}
+
+	public void setType(GenerateResourceType type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
-		return "ContextFile [filePath=" + filePath + ", context=" + context + ", overwirte=" + overwirte + "]";
+		return "ContextFile [type=" + type + ", filePath=" + filePath + ", context=" + context + ", overwirte="
+				+ overwirte + "]";
 	}
 	
 	
