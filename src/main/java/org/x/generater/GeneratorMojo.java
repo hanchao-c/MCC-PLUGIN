@@ -409,7 +409,7 @@ public class GeneratorMojo extends AbstractMojo {
 		resources.put(GenerateResourceType.FTL_REPOSITORY_IMPL, new ClassPathResource("template/context/repositoryImpl.ftl"));
 		resources.put(GenerateResourceType.XML_MYBATIS_GENERATOR, new ClassPathResource("template/mybatis/generatorConfig.ftl"));
 		resources.put(GenerateResourceType.MOCK, new ClassPathResource("template/context/mock.ftl"));
-		resources.put(GenerateResourceType.XSD_GENERATOR, new ClassPathResource("template/mybatis/generator.xsd"));
+		resources.put(GenerateResourceType.XSD_GENERATOR, new ClassPathResource("template/generator.xsd"));
 		resources.put(GenerateResourceType.XML_GENERATOR, new FilePathResource(configurationFile));
 	}
 

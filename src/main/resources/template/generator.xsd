@@ -36,17 +36,14 @@
 	
 	<xs:complexType name="model">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="mapper">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="mapping">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="jdbcConnection">
@@ -81,35 +78,30 @@
 	<xs:complexType name="controller">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Controller" />
 	</xs:complexType>
 	
 	<xs:complexType name="service">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Service" />
 	</xs:complexType>
 	
 	<xs:complexType name="serviceImpl">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="ServiceImpl" />
 	</xs:complexType>
 
 	<xs:complexType name="repository">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Repository" />
 	</xs:complexType>
 	
 	<xs:complexType name="repositoryImpl">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="RepositoryImpl" />
 	</xs:complexType>
 	<!-- context configuration -->
