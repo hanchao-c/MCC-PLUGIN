@@ -35,7 +35,16 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
- 		<#list tables as table><table schema="${schema}" tableName="${table.tableName}" domainObjectName="${table.domainObjectName}"  enableCountByExample="false"/></#list> 
+ 		<#list tables as table>
+ 		<#if (table.rootClass)??  && (table.rootClass) != "" >
+ 			<table schema="${schema}" tableName="${table.tableName}" domainObjectName="${table.domainObjectName}"  enableCountByExample="false">
+ 				<property name="rootClass" value="${table.rootClass}"/>
+ 			</table>
+		<#else>
+			<table schema="${schema}" tableName="${table.tableName}" domainObjectName="${table.domainObjectName}"  enableCountByExample="false"/>	
+		</#if>
+ 		
+ 		</#list> 
  		
 	</context>
 </generatorConfiguration>

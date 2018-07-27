@@ -8,6 +8,9 @@ public class Table {
 	private String tableName;
 	@JacksonXmlProperty(isAttribute = true)
 	private String domainObjectName;
+	@JacksonXmlProperty(isAttribute = true)
+	private String rootClass;
+	
 
 	public String getTableName() {
 		return tableName;
@@ -25,9 +28,18 @@ public class Table {
 		this.domainObjectName = domainObjectName;
 	}
 
+	public String getRootClass() {
+		return rootClass;
+	}
+
+	public void setRootClass(String rootClass) {
+		this.rootClass = rootClass;
+	}
+
 	@Override
 	public String toString() {
-		return "Table [tableName=" + tableName + ", domainObjectName=" + domainObjectName + "]";
+		return "Table [tableName=" + tableName + ", domainObjectName=" + domainObjectName + ", rootClass=" + rootClass
+				+ "]";
 	}
 
 }
