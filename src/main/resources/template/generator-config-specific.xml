@@ -8,7 +8,14 @@
 	<property name="contextTargetPackage" value="com.jlbank.route"/>
 	<property name="mybatisTargetPackage" value="${contextTargetPackage}.repository"/>
 	
-	<contextGenerator targetPackage="${contextTargetPackage}" overwrite="true" inUsing="false" />
+	<contextGenerator targetPackage="${contextTargetPackage}" overwrite="true" inUsing="false" >
+		<mock suffix="Mock" targetPackage="${contextTargetPackage}.model" overwrite="false"/>
+		<controller suffix="Controller" targetPackage="${contextTargetPackage}.web"/>	
+		<service suffix="Service" targetPackage="${contextTargetPackage}.service"/>
+		<serviceImpl suffix="ServiceImpl" targetPackage="${contextTargetPackage}.service.impl"/>
+		<repository suffix="Repository" targetPackage="${contextTargetPackage}.repository"/>
+		<repositoryImpl suffix="RepositoryImpl" targetPackage="${contextTargetPackage}.repository.impl"/>	
+	</contextGenerator>
 	
 	<mybatisGenerator targetPackage="${mybatisTargetPackage}" overwrite="true" inUsing="true">
 		<jdbcConnection url="jdbc:mysql://127.0.0.1:3306/plugin_ins" 
