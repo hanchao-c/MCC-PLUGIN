@@ -28,6 +28,7 @@
 		</xs:sequence>
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
+		<xs:attribute name="inUsing" type="booleanType" use="required" />
 	</xs:complexType>
 	
 	<xs:complexType name="model">
@@ -62,7 +63,6 @@
 		</xs:sequence>
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
-		<xs:attribute name="inUsing" type="booleanType" use="required" />
 	</xs:complexType>
 	
 	<xs:simpleType name="stringtype">
