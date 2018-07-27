@@ -102,7 +102,7 @@ public class GeneratorMojo extends AbstractMojo {
 		ContextGenerator contextGenerator = generator.getContextGenerator();
 		List<Table> tables = generator.getTables();
 		buildMybatisGenerateModel(mybatisGenerator, tables);
-		generateMyBatisCode(mybatisGenerator.getOverwrite(), tables);
+		generateMyBatisCode(mybatisGenerator, tables);
 		if(generator.skippedContextGenerator()){
 			logger.info("Context generation skipped");
 			return;
@@ -283,7 +283,7 @@ public class GeneratorMojo extends AbstractMojo {
 		}
 	}
 
-	private void generateMyBatisCode(boolean overwirte, List<Table> tables) throws MojoExecutionException {
+	private void generateMyBatisCode(MybatisGenerator mybatisGenerator, List<Table> tables) throws MojoExecutionException {
 		logger.info("");
 		logger.info("Generate mybatis start");
 		logger.info("------------------------------------------------------------------------");
@@ -294,13 +294,15 @@ public class GeneratorMojo extends AbstractMojo {
         	stringReader = new StringReader(process);
             ConfigurationParser configurationParser = new ConfigurationParser(null, warnings);
             config = configurationParser.parseConfiguration(stringReader);
-            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, new DefaultShellCallback(overwirte), warnings);
-            myBatisGenerator.generate(new NullProgressCallback(){
-            	@Override
-            	public void startTask(String taskName) {
-            		logger.info(taskName);
-            	}
-            }, new HashSet<String>(), new HashSet<String>());
+            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, new DefaultShellCallback(mybatisGenerator.getOverwrite()), warnings);
+            if(Boolean.TRUE.equals(mybatisGenerator.getInUsing())) {
+            	 myBatisGenerator.generate(new NullProgressCallback(){
+                 	@Override
+                 	public void startTask(String taskName) {
+                 		logger.info(taskName);
+                 	}
+                 }, new HashSet<String>(), new HashSet<String>());
+            }
         } catch (XMLParserException e) {
             for (String error : e.getErrors()) {
                 logger.error(error);

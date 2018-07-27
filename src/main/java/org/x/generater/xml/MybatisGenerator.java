@@ -20,6 +20,8 @@ public class MybatisGenerator implements Rebuilder{
 	private String targetPackage;
 	@JacksonXmlProperty(isAttribute = true)
 	private Boolean overwrite = Boolean.TRUE;
+	@JacksonXmlProperty(isAttribute = true)
+	private Boolean inUsing = Boolean.TRUE;
 
 	public JdbcConnection getJdbcConnection() {
 		return jdbcConnection;
@@ -125,6 +127,14 @@ public class MybatisGenerator implements Rebuilder{
 
 	public void setOverwrite(Boolean overwrite) {
 		this.overwrite = overwrite;
+	}
+
+	public Boolean getInUsing() {
+		return inUsing;
+	}
+
+	public void setInUsing(Boolean inUsing) {
+		this.inUsing = inUsing;
 	}
 
 }
