@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.xxxs.com.cn" xmlns="http://www.xxxs.com.cn"
+	targetNamespace="http://www.9fbank.com" xmlns="http://www.9fbank.com"
 	elementFormDefault="qualified">
 
+	<!-- root element -->
 	<xs:element name="generators">
 		<xs:complexType>
 			<xs:sequence>
@@ -14,11 +15,13 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<!-- properties -->
 	<xs:complexType name="property">
 		<xs:attribute name="name" type="stringtype" use="required" />
 		<xs:attribute name="value" type="stringtype" use="required" />
 	</xs:complexType>
 
+	<!-- mybatis configuration  -->
 	<xs:complexType name="mybatisGenerator">
 		<xs:sequence>
 			<xs:element name="jdbcConnection" type="jdbcConnection" />
@@ -33,17 +36,17 @@
 	
 	<xs:complexType name="model">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="mapper">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="mapping">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 	</xs:complexType>
 	
 	<xs:complexType name="jdbcConnection">
@@ -51,7 +54,9 @@
 		<xs:attribute name="userName" type="stringtype" use="required" />
 		<xs:attribute name="password" type="stringtype" use="required" />
 	</xs:complexType>
+	<!-- mybatis configuration  -->
 
+	<!-- context configuration -->
 	<xs:complexType name="contextGenerator">
 		<xs:sequence>
 			<xs:element name="controller" type="controller" minOccurs="0" maxOccurs="1"/>
@@ -66,14 +71,6 @@
 		<xs:attribute name="inUsing" type="booleanType" use="required" />
 	</xs:complexType>
 	
-	<xs:simpleType name="stringtype">
-		<xs:restriction base="xs:string" />
-	</xs:simpleType>
-
-	<xs:simpleType name="booleanType">
-		<xs:restriction base="xs:boolean" />
-	</xs:simpleType>
-
 	<xs:complexType name="modelMock">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
@@ -84,42 +81,53 @@
 	<xs:complexType name="controller">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Controller" />
 	</xs:complexType>
 	
 	<xs:complexType name="service">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Service" />
 	</xs:complexType>
 	
 	<xs:complexType name="serviceImpl">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="ServiceImpl" />
 	</xs:complexType>
 
 	<xs:complexType name="repository">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Repository" />
 	</xs:complexType>
 	
 	<xs:complexType name="repositoryImpl">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
+		<!-- <xs:attribute name="overwrite" type="booleanType" use="optional"  /> -->
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="RepositoryImpl" />
 	</xs:complexType>
-	
+	<!-- context configuration -->
+
+	<!-- tables -->	
 	<xs:complexType name="table">
 		<xs:attribute name="tableName" type="stringtype" use="required" />
 		<xs:attribute name="domainObjectName" type="stringtype" use="required"/>
+		<xs:attribute name="rootClass" type="stringtype" use="optional"/>
 	</xs:complexType>
 	
+	<!-- -->
+	<xs:simpleType name="stringtype">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="booleanType">
+		<xs:restriction base="xs:boolean" />
+	</xs:simpleType>
 
 </xs:schema>
