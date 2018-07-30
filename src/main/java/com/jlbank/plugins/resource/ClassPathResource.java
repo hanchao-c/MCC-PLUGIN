@@ -1,9 +1,9 @@
-package org.x.resource;
+package com.jlbank.plugins.resource;
 
 import java.io.InputStream;
 import java.net.URL;
 
-import org.x.util.StreamUtil;
+import com.jlbank.plugins.util.StreamUtil;
 
 public class ClassPathResource implements Resource {
 

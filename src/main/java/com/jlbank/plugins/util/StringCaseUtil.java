@@ -1,4 +1,4 @@
-package org.x.util;
+package com.jlbank.plugins.util;
 
 public class StringCaseUtil {
 

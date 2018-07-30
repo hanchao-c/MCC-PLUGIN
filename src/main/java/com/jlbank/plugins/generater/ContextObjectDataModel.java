@@ -1,7 +1,7 @@
-package org.x.generater;
+package com.jlbank.plugins.generater;
 
-import org.x.generater.xml.BeanGenerator;
-import org.x.util.StringCaseUtil;
+import com.jlbank.plugins.generater.xml.BeanGenerator;
+import com.jlbank.plugins.util.StringCaseUtil;
 
 public class ContextObjectDataModel {
 

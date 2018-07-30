@@ -1,11 +1,11 @@
-package org.x.generater.xml;
+package com.jlbank.plugins.generater.xml;
 
 import org.apache.commons.lang3.StringUtils;
-import org.x.util.StringCaseUtil;
-import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.google.common.base.Objects;
+import com.jlbank.plugins.util.StringCaseUtil;
+import com.jlbank.plugins.util.ThrowableUtil;
 
 public class ContextGenerator implements Rebuilder{
 

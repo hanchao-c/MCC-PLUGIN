@@ -1,4 +1,4 @@
-package org.x.generater.xml;
+package com.jlbank.plugins.generater.xml;
 
 import java.util.List;
 import java.util.Map;

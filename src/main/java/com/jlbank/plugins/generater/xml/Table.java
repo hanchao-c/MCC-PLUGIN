@@ -1,4 +1,4 @@
-package org.x.generater.xml;
+package com.jlbank.plugins.generater.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 

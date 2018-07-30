@@ -1,4 +1,4 @@
-package org.x.generater;
+package com.jlbank.plugins.generater;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,25 +44,25 @@ import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.internal.NullProgressCallback;
-import org.x.generater.xml.BeanGenerator;
-import org.x.generater.xml.ContextGenerator;
-import org.x.generater.xml.Generator;
-import org.x.generater.xml.JdbcConnection;
-import org.x.generater.xml.MybatisGenerator;
-import org.x.generater.xml.PropertiesHandler;
-import org.x.generater.xml.Property;
-import org.x.generater.xml.Table;
-import org.x.resource.ClassPathResource;
-import org.x.resource.FilePathResource;
-import org.x.resource.Resource;
-import org.x.util.StringCaseUtil;
-import org.x.util.XMLlUtil;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
+import com.jlbank.plugins.generater.xml.BeanGenerator;
+import com.jlbank.plugins.generater.xml.ContextGenerator;
+import com.jlbank.plugins.generater.xml.Generator;
+import com.jlbank.plugins.generater.xml.JdbcConnection;
+import com.jlbank.plugins.generater.xml.MybatisGenerator;
+import com.jlbank.plugins.generater.xml.PropertiesHandler;
+import com.jlbank.plugins.generater.xml.Property;
+import com.jlbank.plugins.generater.xml.Table;
+import com.jlbank.plugins.resource.ClassPathResource;
+import com.jlbank.plugins.resource.FilePathResource;
+import com.jlbank.plugins.resource.Resource;
+import com.jlbank.plugins.util.StringCaseUtil;
+import com.jlbank.plugins.util.XMLlUtil;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -295,14 +295,12 @@ public class GeneratorMojo extends AbstractMojo {
             ConfigurationParser configurationParser = new ConfigurationParser(null, warnings);
             config = configurationParser.parseConfiguration(stringReader);
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, new DefaultShellCallback(mybatisGenerator.getOverwrite()), warnings);
-            if(Boolean.TRUE.equals(mybatisGenerator.getInUsing())) {
-            	 myBatisGenerator.generate(new NullProgressCallback(){
-                 	@Override
-                 	public void startTask(String taskName) {
-                 		logger.info(taskName);
-                 	}
-                 }, new HashSet<String>(), new HashSet<String>());
-            }
+			myBatisGenerator.generate(new NullProgressCallback(){
+				@Override
+				public void startTask(String taskName) {
+					logger.info(taskName);
+				}
+			}, new HashSet<String>(), new HashSet<String>(), mybatisGenerator.getInUsing());
         } catch (XMLParserException e) {
             for (String error : e.getErrors()) {
                 logger.error(error);
@@ -349,20 +347,27 @@ public class GeneratorMojo extends AbstractMojo {
 	}
 	
 	private void buildMybatisGenerateModel(MybatisGenerator mybatisGenerator, List<Table> tables) {
-		mybatisGenerateDataModel.put("mapperPackage", mybatisGenerator.getTargetPackage());
-		mybatisGenerateDataModel.put("mappingPackage", mybatisGenerator.getTargetPackage());
-		mybatisGenerateDataModel.put("modelPackage", mybatisGenerator.getTargetPackage());
+		putIfNotNull("mapperPackage", mybatisGenerator.getTargetPackage());
+		putIfNotNull("mappingPackage", mybatisGenerator.getTargetPackage());
+		putIfNotNull("modelPackage", mybatisGenerator.getTargetPackage());
 		JdbcConnection jdbcConnection = mybatisGenerator.getJdbcConnection();
-		mybatisGenerateDataModel.put("connectionURL", jdbcConnection.getUrl());
-		mybatisGenerateDataModel.put("password", jdbcConnection.getPassword());
-		mybatisGenerateDataModel.put("userId", jdbcConnection.getUserName());
-		mybatisGenerateDataModel.put("mapperPackage", mybatisGenerator.getMapperGenerator().getTargetPackage());
-		mybatisGenerateDataModel.put("mappingPackage", mybatisGenerator.getMappingGenerator().getTargetPackage());
-		mybatisGenerateDataModel.put("modelPackage", mybatisGenerator.getModelGenerator().getTargetPackage());
-		mybatisGenerateDataModel.put("tables", tables);
+		putIfNotNull("connectionURL", jdbcConnection.getUrl());
+		putIfNotNull("password", jdbcConnection.getPassword());
+		putIfNotNull("userId", jdbcConnection.getUserName());
+		putIfNotNull("mapperPackage", mybatisGenerator.getMapperGenerator().getTargetPackage());
+		putIfNotNull("mappingPackage", mybatisGenerator.getMappingGenerator().getTargetPackage());
+		putIfNotNull("modelPackage", mybatisGenerator.getModelGenerator().getTargetPackage());
+		putIfNotNull("tables", tables);
 		String jdbcUrl = jdbcConnection.getUrl();
-		mybatisGenerateDataModel.put("schema", jdbcUrl.substring(jdbcUrl.lastIndexOf("/") + 1, jdbcUrl.length()));
+		putIfNotNull("schema", jdbcUrl.substring(jdbcUrl.lastIndexOf("/") + 1, jdbcUrl.length()));
 	}
+	
+	public void putIfNotNull(String key, Object value) {
+		if(null != value) {
+			mybatisGenerateDataModel.put(key, value);
+		}
+	}
+	
 	
 	private Generator parseGenerateXMLConfig() {
 		PropertiesHandler handler = XMLlUtil.toJavaObject(resources.get(GenerateResourceType.XML_GENERATOR).getAsString(), PropertiesHandler.class);

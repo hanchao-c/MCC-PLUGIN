@@ -1,13 +1,13 @@
-package org.x.generater.xml;
+package com.jlbank.plugins.generater.xml;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.jlbank.plugins.util.ThrowableUtil;
 
 public class Generator implements Rebuilder{
 	

@@ -1,4 +1,4 @@
-package org.x.generater;
+package com.jlbank.plugins.generater;
 
 public enum GenerateResourceType {
 

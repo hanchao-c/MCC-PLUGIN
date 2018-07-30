@@ -1,4 +1,4 @@
-package org.x.resource;
+package com.jlbank.plugins.resource;
 
 import java.io.InputStream;
 import java.net.URL;

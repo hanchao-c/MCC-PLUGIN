@@ -1,6 +1,6 @@
-package org.x.util;
+package com.jlbank.plugins.util;
 
-import org.x.generater.xml.MavenPluginGeneratorBuildingException;
+import com.jlbank.plugins.generater.xml.MavenPluginGeneratorBuildingException;
 
 public class ThrowableUtil {
 

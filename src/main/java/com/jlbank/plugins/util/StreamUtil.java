@@ -1,4 +1,4 @@
-package org.x.util;
+package com.jlbank.plugins.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.util.IOUtil;
-import org.x.MavenPluginLoggerFactory;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
+import com.jlbank.plugins.MavenPluginLoggerFactory;
 
 public class StreamUtil {
 

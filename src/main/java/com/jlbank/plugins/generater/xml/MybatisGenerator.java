@@ -1,10 +1,10 @@
-package org.x.generater.xml;
+package com.jlbank.plugins.generater.xml;
 
 import org.apache.commons.lang3.StringUtils;
-import org.x.util.StringCaseUtil;
-import org.x.util.ThrowableUtil;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.jlbank.plugins.util.StringCaseUtil;
+import com.jlbank.plugins.util.ThrowableUtil;
 
 public class MybatisGenerator implements Rebuilder{
 
@@ -94,12 +94,17 @@ public class MybatisGenerator implements Rebuilder{
 			}
 			generator = new BeanGenerator(getTargetPackage() + "." + packageSuffix, suffix);
 		}else{
+			String target = null;
 			if(StringUtils.isBlank(generator.getTargetPackage())){
 				if(StringUtils.isBlank(this.getTargetPackage())){
 					ThrowableUtil.throwOf("set attribute 'targetPackage' on tag <mybatisGenerator /> or it's sub tags <model />,<mapper />,<mapping />");
+				}else {
+					target = this.getTargetPackage();
 				}
-				generator = new BeanGenerator(generator.getTargetPackage(), suffix);
+			}else {
+				target = generator.getTargetPackage();
 			}
+			generator = new BeanGenerator(target, suffix);
 		}
 		
 		if(null == generator.getOverwrite()) {

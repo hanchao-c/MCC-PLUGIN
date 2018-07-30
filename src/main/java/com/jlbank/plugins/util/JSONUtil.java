@@ -1,11 +1,11 @@
-package org.x.util;
+package com.jlbank.plugins.util;
 
 import org.apache.maven.plugin.logging.Log;
-import org.x.MavenPluginLoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jlbank.plugins.MavenPluginLoggerFactory;
 
 public class JSONUtil {
 

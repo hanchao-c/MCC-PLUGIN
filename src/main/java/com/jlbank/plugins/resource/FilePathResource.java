@@ -1,4 +1,4 @@
-package org.x.resource;
+package com.jlbank.plugins.resource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,11 +8,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.maven.plugin.logging.Log;
-import org.x.MavenPluginLoggerFactory;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.io.Files;
+import com.jlbank.plugins.MavenPluginLoggerFactory;
 
 public class FilePathResource implements Resource{
 
