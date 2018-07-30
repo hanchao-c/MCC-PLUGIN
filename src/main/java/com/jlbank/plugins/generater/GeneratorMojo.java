@@ -81,17 +81,17 @@ public class GeneratorMojo extends AbstractMojo {
     private final Log logger = getLog();
     
     private final Map<GenerateResourceType, Resource> resources = Maps.newHashMap();
-    private final Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
+    private final Configuration freemarkerConfig = new Configuration(Configuration.VERSION_2_3_23);
     private final Map<String, Object> mybatisGenerateDataModel =  Maps.newHashMap();
     private final Map<String, Map<String, ContextObjectDataModel>> contextGeneratorDataModel = Maps.newHashMap();
     private final Map<String, Object> propertiesMap = Maps.newHashMap();
-    private org.mybatis.generator.config.Configuration config;
+    private org.mybatis.generator.config.Configuration mybatisConfig;
     List<ContextFile> contextFiles = Lists.newArrayList();
     void init(){
     	loadGenerateConfigs();
 		validateGeneratorXML();
 		fillFreemarkerTemplates();
-		configuration.setEncoding(Locale.CHINA, "UTF-8");
+		freemarkerConfig.setEncoding(Locale.CHINA, "UTF-8");
     }
     
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -109,7 +109,7 @@ public class GeneratorMojo extends AbstractMojo {
 		}
 		replaceTemplates(contextGenerator);
 		buildContextGeneratorModel(generator, tables);
-		List<Context> contexts = config.getContexts();
+		List<Context> contexts = mybatisConfig.getContexts();
 		generateContextCode(tables, contextGenerator, contexts);
 	}
 	
@@ -139,7 +139,7 @@ public class GeneratorMojo extends AbstractMojo {
 				return;
 			}
 			logger.info("Replace template of '" + type.getSubject() + "' with file : " + filePath);
-			StringTemplateLoader templateLoader = (StringTemplateLoader) configuration.getTemplateLoader();
+			StringTemplateLoader templateLoader = (StringTemplateLoader) freemarkerConfig.getTemplateLoader();
 			templateLoader.putTemplate(type.name(), new FilePathResource(filePath).getAsString());
 		}
 	}
@@ -293,8 +293,8 @@ public class GeneratorMojo extends AbstractMojo {
         try {
         	stringReader = new StringReader(process);
             ConfigurationParser configurationParser = new ConfigurationParser(null, warnings);
-            config = configurationParser.parseConfiguration(stringReader);
-            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, new DefaultShellCallback(mybatisGenerator.getOverwrite()), warnings);
+            mybatisConfig = configurationParser.parseConfiguration(stringReader);
+            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(mybatisConfig, new DefaultShellCallback(mybatisGenerator.getOverwrite()), warnings);
 			myBatisGenerator.generate(new NullProgressCallback(){
 				@Override
 				public void startTask(String taskName) {
@@ -379,7 +379,7 @@ public class GeneratorMojo extends AbstractMojo {
 	private String process(GenerateResourceType type, Map<String, ?> dataModel){
 		StringWriter writer = null;
 		try {
-			Template template = configuration.getTemplate(type.name());
+			Template template = freemarkerConfig.getTemplate(type.name());
 			template.process(dataModel, writer =  new StringWriter());
 			return writer.toString();
 		} catch (Exception e) {
@@ -424,7 +424,7 @@ public class GeneratorMojo extends AbstractMojo {
 		for (Entry<GenerateResourceType, Resource> entry : entrySet) {
 			stringLoader.putTemplate(entry.getKey().name(), entry.getValue().getAsString());
 		}
-		configuration.setTemplateLoader(stringLoader);
+		freemarkerConfig.setTemplateLoader(stringLoader);
 	}
 	
 }
