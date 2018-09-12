@@ -43,31 +43,15 @@
 	<xs:complexType name="contextGenerator">
 		<xs:sequence>
 			<xs:element name="controller" type="controller" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="mock" type="modelMock" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="service" type="service" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="serviceImpl" type="serviceImpl" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="repository" type="repository" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="repositoryImpl" type="repositoryImpl" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="overwrite" type="booleanType" use="optional"  default="true"/>
 		<xs:attribute name="inUsing" type="booleanType" use="required" />
 	</xs:complexType>
 	
-	<xs:complexType name="modelMock">
-		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="overwrite" type="booleanType" use="optional"  />
-		<xs:attribute name="suffix" type="stringtype" use="optional" default="Mock" />
-	</xs:complexType>
-	
 	<xs:complexType name="controller">
-		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="suffix" type="stringtype" use="optional" default="Controller" />
-	</xs:complexType>
-	
-	<xs:complexType name="service">
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Controller" />
@@ -83,12 +67,6 @@
 		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
 		<xs:attribute name="templatePath" type="stringtype" use="optional" />
 		<xs:attribute name="suffix" type="stringtype" use="optional" default="Repository" />
-	</xs:complexType>
-	
-	<xs:complexType name="repositoryImpl">
-		<xs:attribute name="targetPackage" type="stringtype" use="optional" />
-		<xs:attribute name="templatePath" type="stringtype" use="optional" />
-		<xs:attribute name="suffix" type="stringtype" use="optional" default="RepositoryImpl" />
 	</xs:complexType>
 	
 	<xs:complexType name="table">
