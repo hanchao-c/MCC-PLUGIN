@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.xxxs.com.cn"
+           xmlns="http://www.xxxs.com.cn"
+           elementFormDefault="qualified">
+
+    <xs:element name="generators">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="javaObjectGenerators" type="javaObjectGenerators" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="mybatisGenerateConfig" type="mybatisGenerateConfig" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="properties">
+        <xs:sequence minOccurs="0">
+            <xs:element name="property" type="property" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="property">
+        <xs:attribute name="name" type="stringtype" use="required"/>
+        <xs:attribute name="value" type="stringtype" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="javaObjectGenerators">
+        <xs:sequence>
+            <xs:element name="javaObject" type="javaObject" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="javaObject">
+        <xs:sequence>
+            <xs:element name="name" type="stringtype"/>
+            <xs:element name="prefix" type="stringtype"/>
+            <xs:element name="targetPackage" type="stringtype"/>
+            <xs:element name="targetProject" type="stringtype"/>
+            <xs:element name="templatePath" type="stringtype"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="mybatisGenerateConfig">
+        <xs:attribute name="path" type="stringtype"/>
+    </xs:complexType>
+
+    <xs:simpleType name="stringtype">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="booleanType">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+
+
+</xs:schema>

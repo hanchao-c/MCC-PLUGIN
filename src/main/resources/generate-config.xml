@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<generatorConfiguration>
+    <context id="allinmd-default-config" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="lombok" value="needsGetter, needsSetter, needsToString"/>
+            <property name="forceAnnotation" value="true"/>
+
+        </plugin>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.1.22:4417/growth?useSSL=false"
+                        userId="dev"
+                        password="e2s0m1h6"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.allinmd.growth.dao.po" targetProject="../growth-dao/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mapper/generate" targetProject="../growth-dao/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.allinmd.growth.dao.mapper.generate"
+                             targetProject="../growth-dao/src/main/java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+       <!--
+
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_customer_relation"
+               domainObjectName="OpportunityCustomerRelation">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_team_dispatch"
+               domainObjectName="OpportunityTeamDispatch">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="role" domainObjectName="Role">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="track_customer_merge"
+               domainObjectName="TrackCustomerMerge">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="customer_track_merge"
+               domainObjectName="CustomerTrackMerge">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_operation"
+               domainObjectName="OpportunityOperation">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_user_dispatch"
+               domainObjectName="OpportunityUserDispatch">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="channel_team_relation"
+               domainObjectName="ChannelTeamRelation">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_user_contact"
+               domainObjectName="OpportunityUserContact">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="city"
+               domainObjectName="City">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="customer_track_import"
+               domainObjectName="CustomerTrackImport">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="customer_track" domainObjectName="CustomerTrack">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="channel" domainObjectName="Channel">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="team" domainObjectName="Team">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+       </table>
+        <table enableCountByExample="false" schema="growth" tableName="city"
+               domainObjectName="City">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="province"
+               domainObjectName="Province">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="hospital"
+               domainObjectName="Hospital">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="user" domainObjectName="User">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="user" domainObjectName="User">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+         <table enableCountByExample="false" schema="growth" tableName="channel" domainObjectName="Channel">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="volunteer_patient"
+               domainObjectName="VolunteerPatient">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="customer" domainObjectName="Customer">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table enableCountByExample="false" schema="growth" tableName="hospital"
+               domainObjectName="Hospital">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="department"
+               domainObjectName="Department">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="doctor"
+               domainObjectName="Doctor">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="volunteer_patient"
+               domainObjectName="VolunteerPatient">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_user_contact"
+               domainObjectName="OpportunityUserContact">
+            <property name="rootClass" value="CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="opportunity_user_contact"
+               domainObjectName="OpportunityUserContact">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="volunteer_booking"
+               domainObjectName="VolunteerBooking">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table enableCountByExample="false" schema="growth" tableName="leads_opportunity_merge"
+               domainObjectName="LeadsOpportunityMerge">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        -->
+        <table enableCountByExample="false" schema="growth" tableName="leads" domainObjectName="Leads">
+            <property name="rootClass" value="com.allinmd.growth.common.CommonField"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

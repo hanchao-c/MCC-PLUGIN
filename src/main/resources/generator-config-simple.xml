@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generators xmlns="http://www.xxxs.com.cn"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="/generator.xsd">
+
+    <properties>
+        <property name="auth" value="hc"/>
+        <property name="date" value="a"/>
+    </properties>
+
+    <javaObjectGenerators>
+        <javaObject>
+            <name>0</name>
+            <prefix>1</prefix>
+            <targetPackage>2</targetPackage>
+            <targetProject>3</targetProject>
+            <templatePath>4</templatePath>
+        </javaObject>
+        <javaObject>
+            <name>5</name>
+            <prefix>6</prefix>
+            <targetPackage>7</targetPackage>
+            <targetProject>8</targetProject>
+            <templatePath>9</templatePath>
+        </javaObject>
+    </javaObjectGenerators>
+
+    <mybatisGenerateConfig path="123"/>
+
+</generators>
