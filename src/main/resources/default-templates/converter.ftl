@@ -10,11 +10,12 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface ${converter_name} {
 
-${model_name} convertToPO(${createParam_name} ${createParam_name_lower});
+    ${model_name} convertToPO(${createParam_name} ${createParam_name_lower});
 
-${model_name} convertToPO(${updateParam_name} ${updateParam_name_lower});
+    ${model_name} convertToPO(${updateParam_name} ${updateParam_name_lower});
 
-${DTO_name} convertToDTO(${model_name} ${model_name_lower});
+    ${DTO_name} convertToDTO(${model_name} ${model_name_lower});
 
-${result_name} convertToResult(${DTO_name} ${DTO_name_lower});
+    ${result_name} convertToResult(${DTO_name} ${DTO_name_lower});
+
 }

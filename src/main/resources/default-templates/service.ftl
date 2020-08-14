@@ -13,7 +13,7 @@ public interface ${service_name} {
 
     void update${model_name}(${updateParam_name} ${updateParam_name});
 
-${result_name} get${model_name}ById(Integer id);
+    ${result_name} get${model_name}ById(Integer id);
 
     PageResult<${result_name}> get${model_name}PageResult(PageParam pageParam);
 

@@ -30,25 +30,24 @@ public class ${controller_name} {
 
     @PostMapping("create${model_name}")
     public WebResponse create${model_name}(@Validated @RequestBody ${createParam_name} ${createParam_name_lower}) {
-${service_name_lower}.create${model_name}(${createParam_name_lower});
+        ${service_name_lower}.create${model_name}(${createParam_name_lower});
         return WebResponseUtils.successWebResponse(null);
     }
 
     @PostMapping("update${model_name}")
     public WebResponse Update${model_name}(@Validated @RequestBody ${updateParam_name} ${updateParam_name_lower}) {
-${service_name_lower}.update${model_name}(${updateParam_name_lower});
+        ${service_name_lower}.update${model_name}(${updateParam_name_lower});
         return WebResponseUtils.successWebResponse(null);
     }
 
     @GetMapping("get${model_name}ById")
     public WebResponse<${result_name}> get${model_name}ById(@NotNull Integer id) {
-${result_name} ${result_name_lower} = ${service_name_lower}.get${model_name}ById(id);
+        ${result_name} ${result_name_lower} = ${service_name_lower}.get${model_name}ById(id);
         return WebResponseUtils.successWebResponse(${result_name_lower});
     }
 
     @GetMapping("get${model_name}Page")
-    public WebResponse
-<PageResult<${result_name}>> get${model_name}Page(PageParam pageParam) {
+    public WebResponse<PageResult<${result_name}>> get${model_name}Page(PageParam pageParam) {
         PageResult<${result_name}> ${model_name_lower}PageResult = ${service_name_lower}.get${model_name}PageResult(pageParam);
         return WebResponseUtils.successWebResponse(${model_name_lower}PageResult);
     }

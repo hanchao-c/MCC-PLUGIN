@@ -2,7 +2,6 @@ package ${serviceImpl_targetPackage};
 
 import cn.allinmd.common.infrastructure.models.page.PageParam;
 import cn.allinmd.common.infrastructure.models.page.PageResult;
-import com.allinmd.growth.common.page.SimplePageResult;
 import ${manager_targetPackage}.${manager_name};
 import ${DTO_targetPackage}.${DTO_name};
 import ${converter_targetPackage}.${converter_name};
@@ -32,12 +31,12 @@ public class ${serviceImpl_name} implements ${service_name} {
 
     @Override
     public void update${model_name}(${updateParam_name} ${updateParam_name_lower}) {
-${manager_name_lower}.update${model_name}(${updateParam_name_lower});
+        ${manager_name_lower}.update${model_name}(${updateParam_name_lower});
     }
 
     @Override
     public ${result_name} get${model_name}ById(Integer id) {
-${DTO_name} ${DTO_name_lower} = ${manager_name_lower}.get${model_name}ById(id);
+        ${DTO_name} ${DTO_name_lower} = ${manager_name_lower}.get${model_name}ById(id);
         return converter.convertToResult(${DTO_name_lower});
     }
 

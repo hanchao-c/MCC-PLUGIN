@@ -56,7 +56,8 @@ public class GeneratorMojo extends AbstractMojo {
         try {
             // 原生mybatis-generate.xml配置文件
             String mybatisGenerateConfigPath = getMybatisGenerateConfig(javaObjectConfiguration);
-            String mybatisGeneratorConfigContent = new FilePathResource(mybatisGenerateConfigPath).getAsString();
+            String path = configurationFile.getParentFile().getAbsolutePath() + "/" + mybatisGenerateConfigPath;
+            String mybatisGeneratorConfigContent = new FilePathResource(path).getAsString();
             // 生成mybatis相关代码
             Configuration mybatisConfiguration = generateMyBatisCode(mybatisGeneratorConfigContent);
             generateCustomCode(javaObjectConfiguration, mybatisConfiguration);
@@ -102,7 +103,8 @@ public class GeneratorMojo extends AbstractMojo {
             String templateContent;
             if (StringUtils.isBlank(templatePath)) {
                 templateContent = new ClassPathResource(
-                        "default-templates/" + javaObjectGeneratorConfiguration.getName() + ".ftl").getAsString();
+                        "default-templates/" + javaObjectGeneratorConfiguration.getName() + ".ftl")
+                        .getAsString();
             } else {
                 templateContent = new FilePathResource(templatePath).getAsString();
             }
