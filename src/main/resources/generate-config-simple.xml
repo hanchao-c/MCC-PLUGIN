@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generators xmlns="http://www.xxxs.com.cn"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="/generator.xsd">
+
+    <properties>
+        <property name="auth" value="hc"/>
+        <property name="date" value="a"/>
+    </properties>
+
+    <javaObjectGenerators>
+        <javaObject>
+            <name>controller</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.controller</targetPackage>
+            <targetProject>../training-server/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>createParam</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.model.param</targetPackage>
+            <targetProject>../training-model/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>updateParam</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.model.param</targetPackage>
+            <targetProject>../training-model/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>result</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.model.result</targetPackage>
+            <targetProject>../training-model/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>converter</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.model.converter</targetPackage>
+            <targetProject>../training-model/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>service</name>
+            <prefix>I</prefix>
+            <targetPackage>cn.ccos.training.service</targetPackage>
+            <targetProject>../training-service/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>serviceImpl</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.service.impl</targetPackage>
+            <targetProject>../training-service/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>manager</name>
+            <prefix>I</prefix>
+            <targetPackage>cn.ccos.training.manager</targetPackage>
+            <targetProject>../training-service/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>managerImpl</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.manager.impl</targetPackage>
+            <targetProject>../training-service/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+        <javaObject>
+            <name>DTO</name>
+            <prefix></prefix>
+            <targetPackage>cn.ccos.training.dao.dto</targetPackage>
+            <targetProject>../training-dao/src/main/java</targetProject>
+            <templatePath></templatePath>
+        </javaObject>
+    </javaObjectGenerators>
+
+    <mybatisGenerateConfig path="generate-config.xml"/>
+
+</generators>
